@@ -4,7 +4,7 @@ const emptyObserver = {
   complete: () => {}
 }
 
-module.exports = class Observer {
+class Observer {
   constructor(next, error, complete) {
     this.isStopped = false;
     switch(arguments.length) {
@@ -12,7 +12,11 @@ module.exports = class Observer {
         this.destination = this.safeObserver(emptyObserver)
         break;
       case 1:
-        this.destination = this.safeObserver(next)
+        if (next instanceof Observer) {
+          this.destination = next;
+        } else {
+          this.destination = this.safeObserver(next)
+        }
         break;
       default:
         this.destination = this.safeObserver(next, error, complete)
@@ -68,7 +72,7 @@ module.exports = class Observer {
         this.destination.complete()
       } catch (error) {
         this.unsubscribe()
-        throw err;
+        throw error;
       }
 
       this.unsubscribe()
@@ -77,5 +81,24 @@ module.exports = class Observer {
 
   unsubscribe() {
     this.isStopped = true;
+  }
+}
+
+module.exports = Observer;
+
+module.exports.MapObserver = class MapObserver extends Observer {
+  constructor(observer, callback) {
+    super(observer)
+    this.callback = callback
+    this.next = this.next.bind(this);
+  }
+
+  next(value) {
+    try {
+      this.destination.next(this.callback(value))
+    } catch (error) {
+      this.destination.error(error)
+      return;
+    }
   }
 }

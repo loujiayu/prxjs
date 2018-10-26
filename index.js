@@ -1,15 +1,5 @@
 const Observable = require('./observable');
 
-function create(subscriber) {
-  return {
-    subscribe: function(observerOrNext) {
-      const observer = new Observer(observerOrNext)
-      subscriber(observer)
-      return observer;
-    }
-  }
-}
-
 const observable = new Observable(function(observer) {
   observer.next(1)
   observer.next(2)
@@ -27,4 +17,4 @@ var observer = {
   }
 }
 
-observable.subscribe(observer)
+observable.map(d => d + 1).subscribe(observer)
