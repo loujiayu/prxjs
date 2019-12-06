@@ -11,16 +11,14 @@
   <script>
     var detachedNodes;
 
-    function create() {
-      var ul = document.createElement('ul');
-      for (var i = 0; i < 10; i++) {
-        var li = document.createElement('li');
-        ul.appendChild(li);
-      }
-      detachedNodes = ul;
+    const ljya = {};
+    ljya.x = '';
+    function grow() {
+      ljya.x += 'snckasncasjhncjlahncjasn';
+      // ljya.x.push(new Array(1000000).join('x'));
     }
 
-    document.getElementById('create').addEventListener('click', create);
+    document.getElementById('create').addEventListener('click', grow);
   </script>
 </body>
 </html>
