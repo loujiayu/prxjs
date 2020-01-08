@@ -5,6 +5,7 @@ function grow(arg1, arg2) {
   console.log(arg1)
   console.log(arg2)
   // const aa = [];
+  subGrow();
   // aa.push(1);
 }
 
@@ -20,6 +21,9 @@ function grow(arg1, arg2) {
 //   }
 // }
 
+function subGrow() {
+  parentObj.leakEdge.push(2);
+}
 // const agent = new Agent({aa: 32})
 
 document.getElementById('create').addEventListener('click', grow.bind(this, 1,2));
