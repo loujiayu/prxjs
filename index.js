@@ -5,7 +5,8 @@ function grow(arg1, arg2) {
   console.log(arg1)
   console.log(arg2)
   // const aa = [];
-  subGrow();
+  const obj = []
+  subGrow(obj);
   // aa.push(1);
 }
 
@@ -21,7 +22,8 @@ function grow(arg1, arg2) {
 //   }
 // }
 
-function subGrow() {
+function subGrow(obj) {
+  obj.push(2)
   parentObj.leakEdge.push(2);
 }
 // const agent = new Agent({aa: 32})
