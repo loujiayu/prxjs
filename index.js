@@ -1,31 +1,18 @@
-var parentObj = {leakEdge: []};
+var obj = {};
+var i = 0;
+var power = 2;
 
-function grow(arg1, arg2) {
-  parentObj.leakEdge.push(1);
-  console.log(arg1)
-  console.log(arg2)
-  // const aa = [];
-  const obj = []
-  subGrow(obj);
-  // aa.push(1);
+function grow() {
+  var top = Math.pow(2, power);
+  power++;
+  for (var j = 0; j < top; j++) {
+    obj[Math.random()] = Math.random();
+  }
+  // Adds more properties, but properly deletes them.
+  // Not a leak.
+  var second = Math.random();
+  obj[second] = second;
+
 }
-
-// class Agent {
-//   constructor(params) {
-//     this.foo = params;
-//     this.aa = []
-//   }
-
-//   grow() {
-//     parentObj.leakEdge.push(1);
-//     this.aa.push(1);
-//   }
-// }
-
-function subGrow(obj) {
-  obj.push(2)
-  parentObj.leakEdge.push(2);
-}
-// const agent = new Agent({aa: 32})
 
 document.getElementById('create').addEventListener('click', grow.bind(this, 1,2));
